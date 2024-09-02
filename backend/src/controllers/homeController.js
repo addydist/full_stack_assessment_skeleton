@@ -2,8 +2,8 @@ const { User, Home, UserHome } = require("../models");
 const sequelize = require("../config/config");
 exports.findHomesByUser = async (req, res) => {
   try {
-    const { page = 1 } = req.query; // Default page is 1 if not specified
-    const pageSize = 10; // Define the page size
+    const { page = 1 } = req.query;
+    const pageSize = 10;
     const offset = (page - 1) * pageSize;
     const homes = await Home.findAll({
       include: {
