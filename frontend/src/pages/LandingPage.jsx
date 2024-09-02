@@ -33,24 +33,6 @@ const LandingPage = () => {
     };
 
 
-    // const handleUserChange = async () => {
-
-    //     console.log("User change detected, refetching homes...");
-    //     console.log("Selected User:", selectedUser);
-    //     console.log("Current Page:", currentPage);
-
-    //     // if (!selectedUser) {
-    //     //     console.error("No user selected! Cannot refetch homes.");
-    //     //     return;
-    //     // }
-
-    //     // try {
-    //     //     await queryClient.refetchQueries(["homes", selectedUser, currentPage], { exact: true });
-    //     //     console.log("Homes refetched");
-    //     // } catch (error) {
-    //     //     console.error("Error refetching homes:", error);
-    //     // }
-    // };
 
     if (isLoading) return <div className="flex justify-center items-center text-2xl font-bold min-h-screen">Loading Users...</div>;
     if (error) return <div className="flex justify-center items-center text-2xl font-bold min-h-screen">Error loading users</div>;
@@ -65,7 +47,6 @@ const LandingPage = () => {
                 users={users}
             />
 
-            {/* Display loading, error, or data states for homes */}
             {isLoadingHomes && <p className="flex justify-center items-center text-2xl font-bold min-h-screen">Loading homes...</p>}
             {errorHomes && <p className="flex justify-center items-center text-2xl font-bold min-h-screen">Error loading homes: {errorHomes.message}</p>}
             {!selectedUser ? <div className="flex justify-center items-center text-2xl font-bold min-h-screen">No User Selected</div> : homes && (

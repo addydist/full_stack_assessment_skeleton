@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const fetchUsers = async () => {
-  const response = await axios.get("http://localhost:5000/user/find-all"); // Replace with your actual endpoint
+  const response = await axios.get("http://localhost:5000/user/find-all");
   return response.data;
 };
 
@@ -11,6 +11,6 @@ export const fetchHomes = async (userId, page = 1) => {
   );
   let response = await axios.get(
     `http://localhost:5000/home/find-by-user/${userId}?page=${page}`
-  ); // Replace with your actual endpoint
+  );
   return response.data;
 };
