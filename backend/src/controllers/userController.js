@@ -21,12 +21,12 @@ exports.findUsersByHome = async (req, res) => {
       },
     });
     const home = await Home.findOne({
-      where: { id: req.params.homeId }, // Use the homeId from the request parameters
-      attributes: ["street_address"], // Assuming 'address' is the field name for the home's address
+      where: { id: req.params.homeId },
+      attributes: ["street_address"],
     });
     const address = home.street_address;
     console.log(address);
-    // Extract user IDs
+
     const interestedUser = users.map((user) => user.id);
 
     res.json({
