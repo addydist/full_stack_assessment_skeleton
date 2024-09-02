@@ -307,7 +307,6 @@ docker-compose -f docker-compose.initial.yml up --build -d
     <img src="https://img.shields.io/badge/React-61DAFB.svg?style=flat-square&logo=React&logoColor=black" alt="React">
     <img src="https://img.shields.io/badge/Express-000000.svg?style=flat-square&logo=Express&logoColor=white" alt="Express">
     <img src="https://img.shields.io/badge/-Sequelize-52B0E7?style=flat-square&logo=sequelize&labelColor=52B0E7&logoColor=FFF" alt="Sequelize">
-    <img src="https://img.shields.io/badge/Prisma-2D3748.svg?style=flat-square&logo=Prisma&logoColor=white" alt="Prisma">
     <br>
     <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat-square&logo=JavaScript&logoColor=black" alt="JavaScript">
     <img src="https://shields.io/badge/MySQL-lightgrey?logo=mysql&style=plastic&logoColor=white&labelColor=blue" alt="MySql">
@@ -387,7 +386,34 @@ nodemon
    Files `src/routes/homeRoutes` and `src/routes/userRoutes` setting up Express routes for findAll users,finding homes/users and updating users for a home.
    `App.js` Sets up an Express server, configures routes, CORS, and syncs Sequelize with the database.
 
--The React application components that use these API routes to create and delete contacts. The `pages/NewContact` component includes a form for creating new contacts, and the `Contacts` component includes a list of all contacts with a delete button for each contact. -[Here is a shot demo link for reference](https://drive.google.com/file/d/1kCdiZzKZVCsIihkZQKIkIOYmnqmYSDiy/view?usp=sharing)
+
+
+### Database
+
+Creating three tables `user`, `home`, and `user_home_rl`offers several benefits:
+
+1.Many-to-Many Relationships: Allows a user to associate with multiple homes and vice versa.
+2.Data Integrity: Enforces referential integrity through foreign keys.
+3.Flexibility: Simplifies querying relationships between users and homes.
+4.Normalization: Reduces data redundancy.
+5.Querying: Enables efficient querying of user-home relationships.
+6.Indexing: Supports indexing for efficient querying.
+
+`MySQL Workbench` was used for database design and management.
+
+### Frontend
+
+Frontend is a simple Vite+React application in `frontend/src/App.jsx` and `frontend/src/___` and using Tailwind Css.
+The application includes three main components:
+
+1. `components/EditUserModal`-It displays a modal to modify users associated with a selected home. It fetches interested users using React Query and updates user selections through checkboxes, offering save and cancel functionalities.
+2. `components/HomeCard` - displays information about a specific home and allows users to modify associated users. It opens a modal (EditUserModal) to edit user selections, saves changes via an API call, and updates the UI based on user input following state management.
+3. `components/Navbar`- It displays a title and a dropdown to select a user, updating the selected user state.
+
+And contains a `pages/LandingPage` which manages the display of users and homes, with pagination. It uses React Query to fetch user and home data, updates the displayed homes when a user is selected, and handles page navigation between multiple home listings.
+Also the application have one small `utils.api` file which have fetchUsers function which fetches all users from a specified API endpoint, while fetchHomes retrieves homes associated with a specific user and page number, returning the response data.
+
+-[Here is a shot demo link for reference](https://drive.google.com/file/d/1kCdiZzKZVCsIihkZQKIkIOYmnqmYSDiy/view?usp=sharing)
 
 ## Submission Guidelines
 
