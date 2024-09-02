@@ -9,9 +9,11 @@
 - for each section you'll find that it has **problem**, **task**, **solution** sections:
 
 - **problem** :
+
   - explains the core problem we're trying to solve, and maybe some context
 
 - **task** :
+
   - gives a list of tasks that MUST be accomplished by you
   - also tells you what are the must-have features in your solution
   - tasks marked with [<ins>**extra**</ins>] are not necessary, consider them as bonus problems
@@ -22,9 +24,10 @@
 > [!IMPORTANT]
 > please stick to the techstack mentioned; it's a very basic project and does not require an arsenal of libraries, so do not use any other libraries, frameworks, etc.. unless explicitly mentioned
 
-  - however you can use simple libraries that are not mentioned, granted they don't significantly alter the task or do the work for you and that you document the decision-making properly as explained below
+- however you can use simple libraries that are not mentioned, granted they don't significantly alter the task or do the work for you and that you document the decision-making properly as explained below
 
 - **solution** :
+
   - once you're done solving the exercise or a part of it, you **MUST** document your solution in this section under the appropriate part of the exercise you solved, so the for the database problem you should edit the solution section under [database](#1-database) only
 
   - the idea is to document mainly 2 things:
@@ -58,8 +61,7 @@ docker-compose -f docker-compose.initial.yml up --build -d
 > [!WARNING]
 > do not change credentials, db name and any configuration, this just adds unnecessary complexity
 
-> [!TIP]
-> [mysql docker image docs](https://hub.docker.com/_/mysql)
+> [!TIP] > [mysql docker image docs](https://hub.docker.com/_/mysql)
 
 ![mysql creds](images/mysql_creds.png)
 
@@ -72,7 +74,7 @@ docker-compose -f docker-compose.initial.yml up --build -d
 <summary>preview of data in `home_db.user_home` table</summary>
 
 | **username** | **email**          | **street_address**       | **state**     | **zip** | **sqft** | **beds** | **baths** | **list_price** |
-|--------------|--------------------|--------------------------|---------------|---------|----------|----------|-----------|----------------|
+| ------------ | ------------------ | ------------------------ | ------------- | ------- | -------- | -------- | --------- | -------------- |
 | user7        | user7@example.org  | 72242 Jacobson Square    | Arizona       | 05378   | 2945.89  | 1        | 3         | 791204.0       |
 | user7        | user7@example.org  | 75246 Cumberland Street  | Arizona       | 08229   | 2278.71  | 2        | 1         | 182092.0       |
 | user10       | user10@example.org | 72242 Jacobson Square    | Arizona       | 05378   | 2945.89  | 1        | 3         | 791204.0       |
@@ -89,12 +91,14 @@ docker-compose -f docker-compose.initial.yml up --build -d
 ### problem
 
 - as you can see we have data relating users and homes
+
   - each user is identified by its username, i.e., if two rows have the same username, they're talking about the same user
   - similarly each home is identified by its street_address
 
 - this data relates users on our website and which homes they are interested in
 
 - upon basic inspection you can observe the following:
+
   - one user may be related to multiple homes
   - also the same home may be related to multiple users
 
@@ -105,7 +109,8 @@ docker-compose -f docker-compose.initial.yml up --build -d
 ### task
 
 - refactor the data into a _reasonably_ normalized set of tables
-- ensure that the relationship between tables is represented properly using foreign keys -> primary keys  references (as they are usually in relational DBs)
+- ensure that the relationship between tables is represented properly using foreign keys -> primary keys references (as they are usually in relational DBs)
+
   - you'll need to create _atleast_ 2 tables:
 
     - `user` : to store `user` attributes: `username`, `email`
@@ -118,6 +123,7 @@ docker-compose -f docker-compose.initial.yml up --build -d
 - put it inside the `sql` directory under the root directory
 
 - make sure that:
+
   - the SQL script you have created, takes the DB from its initial state (as it was when you started the docker container for the first time) to the "solved" state, when it's executed
 
 - **techstack instructions**
@@ -145,6 +151,7 @@ docker-compose -f docker-compose.initial.yml up --build -d
 ### task
 
 - **homes for user page**
+
   - create a page to show all homes related to a particular user
   - there should be a single-select dropdown at top, to pick the user for whom we want to view the related homes
   - and below that the related homes should populate in cards
@@ -154,7 +161,7 @@ docker-compose -f docker-compose.initial.yml up --build -d
   - make sure that:
     - page is responsive as shown
     - we don't expect any fancy UI, barebones is just fine, but it should be functional
-  
+
 - **edit user functionality**
 
   - each home card has an `Edit User` button attached, this should show a modal on click, this is the `Edit User Modal`:
@@ -167,7 +174,7 @@ docker-compose -f docker-compose.initial.yml up --build -d
     - the users related to that home must be updated in the DB
     - the modal should close and the changes should reflect on the `homes for user page`
     - so for eg: if we had picked `user1` on `homes for user page` then clicked on `Edit User` for any home there and **unchecked** `user1` in the modal and saved, then upon closing of the modal, the home we clicked on previously, should NO longer be visible for `user1`, but should be visible for any other user for whom the checkbox was checked on `Save`
-  
+
   ![edit user modal](images/edit_user_modal.png)
 
   - make sure:
@@ -183,13 +190,15 @@ docker-compose -f docker-compose.initial.yml up --build -d
   - to create the above components / pages, you'll fetch data from [backend APIs](#3-backend-api-development-on-node)
 
   - make sure you're handling data-fetching properly by _preferrably_ using a data-fetching-library:
+
     - show a loading spinner/skeleton while an API request is progress
     - gracefully handle errors if the API calls error out
-    - [<ins>**extra**</ins>] cache API responses, to improve performance 
+    - [<ins>**extra**</ins>] cache API responses, to improve performance
 
   - as discussed below it's preferred to use a data fetching library to handle these problems properly
 
 - **techstack instructions**
+
   - JS frameworks:
 
     - [Vite (recommended)](https://vitejs.dev/guide/) or [Create React App](https://github.com/facebook/create-react-app)
@@ -201,10 +210,13 @@ docker-compose -f docker-compose.initial.yml up --build -d
     - use no other css frameworks, component libs, etc..
 
   - State Management
+
     - use [Redux Toolkit](https://redux-toolkit.js.org/) where appropriate for state-management
 
   - Data Fetching
+
     - **preferred approach** is to use one of the following data-fetching libraries:
+
       - [RTK Query](https://redux-toolkit.js.org/tutorials/rtk-query)
       - [TanStack Query](https://tanstack.com/query/latest)
 
@@ -233,17 +245,21 @@ docker-compose -f docker-compose.initial.yml up --build -d
 - create **REST APIs**, we'll need the following APIs:
 
   - **/user/find-all**
+
     - should return all users from DB
 
   - **/home/find-by-user**
+
     - should return all homes related to a user
     - this is consumed in UI to show home cards
 
   - **/user/find-by-home**
+
     - should return all users related to a home
     - this is consumed in UI, in the `Edit Users` modal
 
   - **/home/update-users**
+
     - this API should take in the new bunch of users (from the modal after `Save`) and the home for which the `Edit Users` button was clicked
     - this API should mutate the DB, to reflect the new set of users related to the home
 
@@ -253,7 +269,7 @@ docker-compose -f docker-compose.initial.yml up --build -d
     - should only use JSON as the interface
     - if possible, sanitize the data sent in the request
     - the `/home/update-users` API is idempotent
-  
+
 - **[<ins>extra</ins>] add pagination**
 
   - for `/home/find-by-user` API add pagination support:
@@ -271,6 +287,7 @@ docker-compose -f docker-compose.initial.yml up --build -d
   - Interacting with DB:
 
     - use one of these ORMs, this the **preferred approach**:
+
       - [TypeORM (recommended)](https://typeorm.io/)
       - [Prisma](https://www.prisma.io/docs/getting-started)
       - [Sequelize](https://sequelize.org/docs/v6/getting-started/)
@@ -281,7 +298,96 @@ docker-compose -f docker-compose.initial.yml up --build -d
 
 ### solution
 
-> explain briefly your solution for this problem here
+<p align="center">
+  <img src="./images/logo.png" alt="Home.llc Logo" height="200">
+</p>
+
+<p align="center">
+    <img src="https://img.shields.io/badge/Vite-646CFF.svg?style=flat-square&logo=Vite&logoColor=white" alt="Vite">
+    <img src="https://img.shields.io/badge/React-61DAFB.svg?style=flat-square&logo=React&logoColor=black" alt="React">
+    <img src="https://img.shields.io/badge/Express-000000.svg?style=flat-square&logo=Express&logoColor=white" alt="Express">
+    <img src="https://img.shields.io/badge/-Sequelize-52B0E7?style=flat-square&logo=sequelize&labelColor=52B0E7&logoColor=FFF" alt="Sequelize">
+    <img src="https://img.shields.io/badge/Prisma-2D3748.svg?style=flat-square&logo=Prisma&logoColor=white" alt="Prisma">
+    <br>
+    <img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat-square&logo=JavaScript&logoColor=black" alt="JavaScript">
+    <img src="https://shields.io/badge/MySQL-lightgrey?logo=mysql&style=plastic&logoColor=white&labelColor=blue" alt="MySql">
+    <img src="https://img.shields.io/badge/Nodemon-76D04B.svg?style=flat-square&logo=Nodemon&logoColor=white" alt="Nodemon">
+    <img src="https://img.shields.io/badge/Axios-5A29E4.svg?style=flat-square&logo=Axios&logoColor=white" alt="Axios">
+    <img src="https://img.shields.io/badge/JSON-000000.svg?style=flat-square&logo=JSON&logoColor=white" alt="JSON">
+</p>
+
+## Introduction
+
+-This is a simple full stack [Vite+React](https://vitejs.dev/) application with a [Node.js](https://nodejs.org/en/) and [Express](https://expressjs.com/) backend. Client side code is written in Vite+React and the backend API is written using Express. This application is formatted through [prettier](https://prettier.io/).
+
+### Development mode
+
+-In the development mode, we will have 2 servers running. The front end code will be served by the [vite dev server](https://vitejs.dev/guide/) which helps with hot and live reloading. The server side Express code will be served by a node server using [nodemon](https://nodemon.io/) which helps in automatically restarting the server whenever server side code changes.
+
+## Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/addydist/full_stack_assessment_skeleton.git
+# For frontend
+# Go inside the directory
+cd frontend
+# Install the dependencies
+npm install
+# Start development server
+yarn dev (or npm run dev)
+
+# For backend
+# Go inside the directory
+cd backend
+# Install the dependencies
+npm install
+# Start development server
+nodemon
+```
+
+## Documentation
+
+### Folder Structure
+
+-There is `backend`,`frontend`,`sql` directory. All the frontend code (react, css, js and any other assets) will be in frontend directory. Backend Node.js/Express code will be in the `backend` directory.Sql directory contains `99_final_db_dump.sql` which contain the new Database dump.
+
+### Vite
+
+-Vite is a build tool that aims to provide a faster and leaner development experience for modern web projects. It consists of two major parts: a dev server that serves your source files over native ES modules, and a build command that bundles your code for production.
+
+### Nodemon
+
+-Nodemon is a utility that will monitor for any changes in the server source code and it automatically restart the server. This is used in development only.
+
+### Express
+
+-Express is a web application framework for Node.js. It is used to build our backend API's.
+
+### Mysql
+
+-Mysql is a widely-used open-source relational database management system known for its reliability, speed, and flexibility. It supports standard SQL and offers robust features for managing complex data efficiently. In this application, three tables are defined: `home`, `user`, and `home_user_rl`, with the last one designed to handle the `many-to-many` relationship between the home and user tables. This structure allows for efficient storage and management of the data while maintaining data integrity and supporting complex querying and transactions.
+
+### Sequelize
+
+-Sequelize is an open-source ORM for Node.js, supporting SQL databases, enabling JavaScript-based database interactions and model management.
+
+<p align="center">###Solution### </p>
+
+### Backend
+
+-Backend includes a simple Express API in `backend/src/controllers/homeController.js` and `backend/src/controllers/userController.js`. The API includes:
+
+1. `userController`-/user/find-all(GET)
+   -/user/find-by-home(GET)
+2. `homeController`-/home/find-by-user(GET)
+   -/home/update-users(PUT)
+   And Models in `backend/src/models/user` ,`backend/src/models/home` ,`backend/src/models/user_home` for Defining models in Sequelize. And `backend/src/models/index.js` setting up many-to-many relationships between User and Home models.
+   Also we have `src/config/database.js`as it configures and tests a MySQL database connection using Sequelize, with environment variables for credentials.
+   Files `src/routes/homeRoutes` and `src/routes/userRoutes` setting up Express routes for findAll users,finding homes/users and updating users for a home.
+   `App.js` Sets up an Express server, configures routes, CORS, and syncs Sequelize with the database.
+
+-The React application components that use these API routes to create and delete contacts. The `pages/NewContact` component includes a form for creating new contacts, and the `Contacts` component includes a list of all contacts with a delete button for each contact. -[Here is a shot demo link for reference](https://drive.google.com/file/d/1kCdiZzKZVCsIihkZQKIkIOYmnqmYSDiy/view?usp=sharing)
 
 ## Submission Guidelines
 
@@ -331,4 +437,3 @@ docker-compose -f docker-compose.initial.yml down
 ### submit the fork url
 
 - when you've committed everything needed to your github fork, please share the url with us, so we can review your submission
-  
